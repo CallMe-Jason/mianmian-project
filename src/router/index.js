@@ -12,7 +12,14 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('@/views/home')
+    component: () => import('@/views/home'),
+    children: [
+      {
+        path: '/subjects/directorys',
+        name: 'subjects',
+        component: () => import('@/views/subject-catalog'),
+      }
+    ]
   }
 ]
 
