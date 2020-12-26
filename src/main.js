@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './styles/globcss.less'
 import './plugins/element.js'
+import './utils/dayjs'
 
 Vue.config.productionTip = false
 
