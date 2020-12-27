@@ -9,7 +9,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    lang: getItem('LANG') || 'zh',
     user: getItem('TOKEN-KEY'),
+    pathState: getItem('PATH-STATE'),
+    tags: ['面板'],
     tagList: getItem('tag') || [{
       name: 'dashboard',
       path: '/dashboard',
@@ -18,6 +21,16 @@ export default new Vuex.Store({
     nextItem: {}
   },
   mutations: {
+    setPathState (state, data) {
+      state.pathState = data
+
+      setItem('PATH-STATE', state.pathState)
+    },
+    changeLang (state, lang) {
+      state.lang = lang
+
+      setItem('LANG', state.lang)
+    },
     getUser (state, data) {
       state.user = data
 
