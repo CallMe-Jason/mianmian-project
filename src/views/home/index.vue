@@ -146,7 +146,11 @@
           </el-button>
         </div>
         <!-- <el-card>123</el-card> -->
-        <router-view />
+        <!-- <a href="../../../public/index.html" target="fm">123</a> -->
+        <!-- <iframe name="fm" src="" frameborder="0"> -->
+          <!-- 123 -->
+          <router-view />
+        <!-- </iframe> -->
         <div class="bottom">
           <p>
             <i class="mianmian mianmian-github"></i>
@@ -356,11 +360,17 @@ export default {
 .home-container {
   height: 100%;
  .header-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
     padding-right: 0px;
     display: flex;
     background: linear-gradient(90deg, #1493fa, #01c6fa);
     align-items: center;
     justify-content: space-between;
+    height: 70px!important;
     .header-left {
       display: flex;
       align-items: center;
@@ -395,10 +405,17 @@ export default {
     }
   }
   .asider-container {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
     width: 180px!important;
     background-color: rgb(255, 255, 255);
   }
   .main-container {
+    padding-top: 90px;
+    margin-left: 180px!important;
     background-color: rgb(240, 240, 240);
     .bottom {
       display: flex;
