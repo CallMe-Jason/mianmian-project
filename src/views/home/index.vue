@@ -406,6 +406,7 @@ export default {
         align-items: center;
       }
       .mianmian{
+        cursor: pointer;
         padding: 0 10px;
         color: #fff;
       }

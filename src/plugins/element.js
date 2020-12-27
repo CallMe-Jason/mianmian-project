@@ -34,9 +34,13 @@ import {
   MessageBox,
   Tag,
   Breadcrumb,
-  BreadcrumbItem
+  BreadcrumbItem,
+  Radio,
+  RadioGroup
 } from 'element-ui'
 
+Vue.use(Radio)
+Vue.use(RadioGroup)
 Vue.use(Button)
 Vue.use(Container)
 Vue.use(Header)
