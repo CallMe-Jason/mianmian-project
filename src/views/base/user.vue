@@ -1,10 +1,11 @@
 <template>
   <div class="BaseUser">
-    后台管理--用户
+
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'BaseUser',
   props: {
@@ -17,9 +18,7 @@ export default {
 
   },
   data () {
-    return {
 
-    }
   },
   methods: {
 

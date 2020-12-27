@@ -12,11 +12,22 @@ export const login = data => {
 }
 
 /**
- * 用户登录接口
+ * 用户菜单
  */
-export const profile = () => {
+export const getmenulists = () => {
   return request({
-    method: 'POST',
-    url: '/frame/profile'
+    method: 'GET',
+    url: '/menus'
+  })
+}
+
+/**
+ * 用户权限
+ */
+export const UserJurisdiction = params => {
+  return request({
+    method: 'GET',
+    url: '/permissions',
+    params
   })
 }
