@@ -2,7 +2,7 @@
   <div class="article-preview">
     <h2 class="preview-title">{{ item.title }}</h2>
     <div class="preview-text">
-      <span>{{ item.createTime | dataformat }}</span>
+      <span>{{ item.createTime | formatTime }}</span>
       <span>{{ item.username }}</span>
       <span class="el-icon-view"></span>
       <span>{{ item.visits }}</span>
