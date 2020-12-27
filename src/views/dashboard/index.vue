@@ -1,5 +1,9 @@
 <template>
   <div class="dashboard">
+    <el-breadcrumb>
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>数据概览</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-row :gutter="20">
       <el-col :span="6">
         <el-card>
@@ -93,8 +97,8 @@ import Radar from './components/radar.vue'
 export default {
   name: 'dashboard',
   props: {
-
   },
+  inject: ['isCollapse'],
   components: {
     Radar,
     Pie,
@@ -104,7 +108,7 @@ export default {
     List
   },
   created () {
-
+    console.log(this.isCollapse, '依赖注入')
   },
   data () {
     return {

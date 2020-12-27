@@ -32,7 +32,9 @@ import {
   Dialog,
   Switch,
   MessageBox,
-  Tag
+  Tag,
+  Breadcrumb,
+  BreadcrumbItem
 } from 'element-ui'
 
 Vue.use(Button)
@@ -66,6 +68,8 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Switch)
 Vue.use(Tag)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

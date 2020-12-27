@@ -5,10 +5,11 @@
         <!-- 头部左边区域 -->
         <div class="header-left">
           <div class="sidebar-logo">
-            <img src="~@/assets/logo2.png" alt="" />
+            <img src="~@/assets/logo1.png" alt="" v-if="isCollapse" />
+            <img src="~@/assets/logo2.png" alt="" v-else />
           </div>
-          <i class="el-icon-s-fold"></i>
-          <span class="panel-text">面板</span>
+          <i class="mianmian mianmian-menu-fold" @click='showMaxAside' v-if="isCollapse"></i>
+          <i class="mianmian mianmian-menu-unfold" @click='showMinAside' v-else></i>
         </div>
         <div class="header-right">
           <el-tooltip effect="dark" content="站内搜索" placement="bottom">
@@ -47,8 +48,8 @@
       </el-header>
     <el-container>
       <!-- 左侧 -->
-      <el-aside width="200px" class="asider-container">
-        <el-menu unique-opened :router="true" :default-active="artice">
+      <el-aside :width="isCollapse ? '50px' : '180px'" class="asider-container">
+        <el-menu unique-opened :router="true" :default-active="artice" :collapse='isCollapse' :collapse-transition='false'>
           <el-menu-item :index="'/dashboard'" @click="saveNavState('/dashboard')" :class="artice === '/dashboard' || artice === null ? 'activeItem' : ''" ref="/dashboard">
             <i class="mianmian mianmian-dashboard"></i>
             <span>
@@ -138,7 +139,7 @@
         </el-menu>
       </el-aside>
       <!-- 主题 -->
-      <el-main class="main-container">
+      <el-main class="main-container" :class="isCollapse ? 'maxWidth' : 'minWidth'">
         <div class="tag">
           <el-button v-for="tag in tagList" :key="tag.path" :type="tag.type" class="tagbc" :class="isActive(tag)? 'active' : ''" @click.prevent="asd(tag)" ref='tag'>
               {{tag.title}}
@@ -178,7 +179,8 @@ export default {
       sreachValue: '',
       isSreach: false, // 控制搜索表单显示与隐藏
       userProfile: {},
-      artice: ''
+      artice: '',
+      isCollapse: false
     }
   },
   computed: {
@@ -190,7 +192,19 @@ export default {
       this.$store.commit('addTag', this.$route)
     }
   },
+  provide: function () {
+    return {
+      isCollapse: this.isCollapse
+    }
+  },
   methods: {
+    // 依赖注入
+    showMinAside () {
+      this.isCollapse = true
+    },
+    showMaxAside () {
+      this.isCollapse = false
+    },
     asd (tag) {
       // console.log(tag.path, '点击的path')
       // console.log(this.$refs, 'ref')
@@ -301,6 +315,17 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.mianmian-menu-fold {
+  margin-left: -120px;
+}
+.maxWidth {
+  padding-top: 90px;
+  margin-left: 50px
+}
+.minWidth {
+  padding-top: 90px;
+  margin-left: 180px;
+}
 .active {
   background-color: rgb(35, 150, 247);
   color: #fff!important;
@@ -335,7 +360,7 @@ export default {
   margin-bottom: 15px;
   // margin-right: 10px;
   padding: 0 20px;
-  width: 1204px;
+  width: 1366px;
   background-color: #fff;
   height: 34px;
   display: flex;
@@ -380,7 +405,7 @@ export default {
         display: flex;
         align-items: center;
       }
-      .el-icon-s-fold {
+      .mianmian{
         padding: 0 10px;
         color: #fff;
       }
@@ -410,12 +435,10 @@ export default {
     left: 0;
     bottom: 0;
     z-index: 1;
-    width: 180px!important;
     background-color: rgb(255, 255, 255);
   }
   .main-container {
-    padding-top: 90px;
-    margin-left: 180px!important;
+    overflow-x: hidden!important;
     background-color: rgb(240, 240, 240);
     .bottom {
       display: flex;
