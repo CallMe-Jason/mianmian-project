@@ -36,9 +36,11 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Checkbox
 } from 'element-ui'
 
+Vue.use(Checkbox)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(Button)
