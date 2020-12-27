@@ -48,8 +48,8 @@
     <el-container>
       <!-- 左侧 -->
       <el-aside width="200px" class="asider-container">
-        <el-menu unique-opened :router="true">
-          <el-menu-item :index="'/dashboard'">
+        <el-menu unique-opened :router="true" :default-active="artice">
+          <el-menu-item :index="'/dashboard'" @click="saveNavState('/dashboard')" :class="artice === '/dashboard' || artice === null ? 'activeItem' : ''">
             <i class="mianmian mianmian-dashboard"></i>
             <span>
               <span>数据概览</span>
@@ -61,25 +61,25 @@
               <span>后台管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item :index="'/base/users'">
+              <el-menu-item :index="'/base/users'" @click="saveNavState('/base/users')" :class="artice === '/base/users' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>用户</span>
               </el-menu-item>
-              <el-menu-item :index="'/base/menus'">
+              <el-menu-item :index="'/base/menus'" @click="saveNavState('/base/menus')" :class="artice === '/base/menus' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>菜单</span>
               </el-menu-item>
-              <el-menu-item :index="'/base/permissions'">
+              <el-menu-item :index="'/base/permissions'" @click="saveNavState('/base/permissions')" :class="artice === '/base/permissions' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>权限</span>
               </el-menu-item>
-              <el-menu-item :index="'/base/logs'">
+              <el-menu-item :index="'/base/logs'" @click="saveNavState('/base/logs')" :class="artice === '/base/logs' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>日志</span>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item :index="'/companys/list'">
+          <el-menu-item :index="'/companys/list'" @click="saveNavState('/companys/list')" :class="artice === '/companys/list' ? 'activeItem' : ''">
             <i class="mianmian mianmian-peoples"></i>
             <span>
               <span>企业管理</span>
@@ -91,19 +91,19 @@
               <span>题库管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item :index="'/questions/list'">
+              <el-menu-item :index="'/questions/list'" @click="saveNavState('/questions/list')" :class="artice === '/questions/list' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>基础题库</span>
               </el-menu-item>
-              <el-menu-item :index="'/questions/choice'">
+              <el-menu-item :index="'/questions/choice'" @click="saveNavState('/questions/choice')" :class="artice === '/questions/choice' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>精选题库</span>
               </el-menu-item>
-              <el-menu-item :index="'/questions/new'">
+              <el-menu-item :index="'/questions/new'" @click="saveNavState('/questions/new')" :class="artice === '/questions/new' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>试题录入</span>
               </el-menu-item>
-              <el-menu-item :index="'/questions/randoms'">
+              <el-menu-item :index="'/questions/randoms'" @click="saveNavState('/questions/randoms')" :class="artice === '/questions/randoms' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>组题列表</span>
               </el-menu-item>
@@ -115,21 +115,21 @@
               <span>学科管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item :index="'/subjects/list'">
+              <el-menu-item :index="'/subjects/list'" @click="saveNavState('/subjects/list')" :class="artice === '/subjects/list' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>学科</span>
               </el-menu-item>
-              <el-menu-item :index="'/subjects/directorys'">
+              <el-menu-item :index="'/subjects/directorys'" @click="saveNavState('/subjects/directorys')" :class="artice === '/subjects/directorys' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>目录</span>
               </el-menu-item>
-              <el-menu-item :index="'/subjects/tags'">
+              <el-menu-item :index="'/subjects/tags'" @click="saveNavState('/subjects/tags')" :class="artice === '/subjects/tags' ? 'activeItem' : ''">
                 <i class="mianmian mianmian-component"></i>
                 <span>标签</span>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item :index="'/articles/list'">
+          <el-menu-item :index="'/articles/list'" @click="saveNavState('/articles/list')" :class="artice === '/articles/list' ? 'activeItem' : ''">
             <i class="mianmian mianmian-component"></i>
             <span>
               <span>面试技巧</span>
@@ -155,6 +155,7 @@
 
 <script>
 import { profile } from '@/api/user'
+// import '@/utils/storage'
 
 export default {
   name: 'HomeIndex',
@@ -165,10 +166,16 @@ export default {
       color: '#409EFF',
       sreachValue: '',
       isSreach: false, // 控制搜索表单显示与隐藏
-      userProfile: {}
+      userProfile: {},
+      artice: ''
     }
   },
   methods: {
+    // 保存路由
+    saveNavState (active) {
+      window.sessionStorage.setItem('activePath', active)
+      this.artice = active
+    },
     async loadUserProfile () {
       try {
         const { data } = await profile()
@@ -201,11 +208,16 @@ export default {
   },
   created () {
     this.loadUserProfile()
+    this.artice = window.sessionStorage.getItem('activePath')
+    console.log(this.artice, '1231')
   }
 }
 </script>
 
 <style lang='less' scoped>
+.bgcActive {
+  background-color: red;
+}
 .home-container {
   height: 100%;
  .header-container {
@@ -280,6 +292,14 @@ export default {
     color: rgb(47, 48, 50);
     margin-right: 16px;
     font-size: 14px;
+  }
+  .activeItem {
+    background: -webkit-linear-gradient(
+      left,
+      rgb(35, 150, 250),
+      rgb(45, 202, 248)
+    );
+    color: #fff;
   }
 }
 </style>

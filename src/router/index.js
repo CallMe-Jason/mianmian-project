@@ -6,6 +6,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/asd',
+    component: () => import('../views/subjects/demo.vue')
+  },
+  {
     path: '/',
     redirect: '/login'
   },
