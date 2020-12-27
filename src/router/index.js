@@ -6,10 +6,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/asd',
-    component: () => import('../views/subjects/demo.vue')
-  },
-  {
     path: '/',
     redirect: '/login'
   },
@@ -27,72 +23,128 @@ const routes = [
       {
         path: '/dashboard',
         name: 'dashboard',
-        component: () => import('@/views/dashboard')
+        title: '数据概览',
+        component: () => import('@/views/dashboard'),
+        meta: {
+          name: '数据概览'
+        }
       },
       {
         path: '/base/users',
         name: 'BaseUser',
-        component: () => import('@/views/base/user')
+        title: '用户',
+        component: () => import('@/views/base/user'),
+        meta: {
+          name: '用户'
+        }
       },
       {
         path: '/base/menus',
         name: 'BaseMenu',
-        component: () => import('@/views/base/menu')
+        title: '菜单',
+        component: () => import('@/views/base/menu'),
+        meta: {
+          name: '菜单'
+        }
       },
       {
         path: '/base/permissions',
         name: 'BasePermission',
-        component: () => import('@/views/base/permission')
+        title: '权限',
+        component: () => import('@/views/base/permission'),
+        meta: {
+          name: '权限'
+        }
       },
       {
         path: '/base/logs',
         name: 'BaseLogs',
-        component: () => import('@/views/base/logs')
+        title: '日志',
+        component: () => import('@/views/base/logs'),
+        meta: {
+          name: '日志'
+        }
       },
       {
         path: '/companys/list',
         name: 'CompanysList',
-        component: () => import('@/views/companys/list')
+        title: '企业管理',
+        component: () => import('@/views/companys/list'),
+        meta: {
+          name: '企业管理'
+        }
       },
       {
         path: '/questions/list',
         name: 'QuestionsList',
-        component: () => import('@/views/questions/list')
+        title: '基础题库',
+        component: () => import('@/views/questions/list'),
+        meta: {
+          name: '基础题库'
+        }
       },
       {
         path: '/questions/choice',
         name: 'QuestionsChoice',
-        component: () => import('@/views/questions/choice')
+        title: '精选题库',
+        component: () => import('@/views/questions/choice'),
+        meta: {
+          name: '精选题库'
+        }
       },
       {
         path: '/questions/new',
         name: 'QuestionsNew',
-        component: () => import('@/views/questions/new')
+        title: '试题录入',
+        component: () => import('@/views/questions/new'),
+        meta: {
+          name: '试题录入'
+        }
       },
       {
         path: '/questions/randoms',
         name: 'QuestionsRandoms',
-        component: () => import('@/views/questions/randoms')
+        title: '主题列表',
+        component: () => import('@/views/questions/randoms'),
+        meta: {
+          name: '主题列表'
+        }
       },
       {
         path: '/subjects/list',
         name: 'SubjectsList',
-        component: () => import('@/views/subjects/list')
+        title: '学科',
+        component: () => import('@/views/subjects/list'),
+        meta: {
+          name: '学科'
+        }
       },
       {
         path: '/subjects/directorys',
         name: 'SubjectsDirectorys',
-        component: () => import('@/views/subjects/directorys')
+        title: '目录',
+        component: () => import('@/views/subjects/directorys'),
+        meta: {
+          name: '目录'
+        }
       },
       {
         path: '/subjects/tags',
         name: 'SubjectsTags',
-        component: () => import('@/views/subjects/tags')
+        title: '标签',
+        component: () => import('@/views/subjects/tags'),
+        meta: {
+          name: '标签'
+        }
       },
       {
         path: '/articles/list',
         name: 'ArticleList',
-        component: () => import('@/views/article/list')
+        title: '面试技巧',
+        component: () => import('@/views/article/list'),
+        meta: {
+          name: '面试技巧'
+        }
       }
     ]
   }

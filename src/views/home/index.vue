@@ -49,7 +49,7 @@
       <!-- 左侧 -->
       <el-aside width="200px" class="asider-container">
         <el-menu unique-opened :router="true" :default-active="artice">
-          <el-menu-item :index="'/dashboard'" @click="saveNavState('/dashboard')" :class="artice === '/dashboard' || artice === null ? 'activeItem' : ''">
+          <el-menu-item :index="'/dashboard'" @click="saveNavState('/dashboard')" :class="artice === '/dashboard' || artice === null ? 'activeItem' : ''" ref="/dashboard">
             <i class="mianmian mianmian-dashboard"></i>
             <span>
               <span>数据概览</span>
@@ -61,25 +61,25 @@
               <span>后台管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item :index="'/base/users'" @click="saveNavState('/base/users')" :class="artice === '/base/users' ? 'activeItem' : ''">
+              <el-menu-item :index="'/base/users'" @click="saveNavState('/base/users')" :class="artice === '/base/users' ? 'activeItem' : ''" ref="/base/users">
                 <i class="mianmian mianmian-component"></i>
                 <span>用户</span>
               </el-menu-item>
-              <el-menu-item :index="'/base/menus'" @click="saveNavState('/base/menus')" :class="artice === '/base/menus' ? 'activeItem' : ''">
+              <el-menu-item :index="'/base/menus'" @click="saveNavState('/base/menus')" :class="artice === '/base/menus' ? 'activeItem' : ''" ref="/base/menus">
                 <i class="mianmian mianmian-component"></i>
                 <span>菜单</span>
               </el-menu-item>
-              <el-menu-item :index="'/base/permissions'" @click="saveNavState('/base/permissions')" :class="artice === '/base/permissions' ? 'activeItem' : ''">
+              <el-menu-item :index="'/base/permissions'" @click="saveNavState('/base/permissions')" :class="artice === '/base/permissions' ? 'activeItem' : ''" ref="/base/permissions">
                 <i class="mianmian mianmian-component"></i>
                 <span>权限</span>
               </el-menu-item>
-              <el-menu-item :index="'/base/logs'" @click="saveNavState('/base/logs')" :class="artice === '/base/logs' ? 'activeItem' : ''">
+              <el-menu-item :index="'/base/logs'" @click="saveNavState('/base/logs')" :class="artice === '/base/logs' ? 'activeItem' : ''" ref="/base/logs">
                 <i class="mianmian mianmian-component"></i>
                 <span>日志</span>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item :index="'/companys/list'" @click="saveNavState('/companys/list')" :class="artice === '/companys/list' ? 'activeItem' : ''">
+          <el-menu-item :index="'/companys/list'" @click="saveNavState('/companys/list')" :class="artice === '/companys/list' ? 'activeItem' : ''" ref='/companys/list'>
             <i class="mianmian mianmian-peoples"></i>
             <span>
               <span>企业管理</span>
@@ -91,19 +91,19 @@
               <span>题库管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item :index="'/questions/list'" @click="saveNavState('/questions/list')" :class="artice === '/questions/list' ? 'activeItem' : ''">
+              <el-menu-item :index="'/questions/list'" @click="saveNavState('/questions/list')" :class="artice === '/questions/list' ? 'activeItem' : ''" ref="/questions/list">
                 <i class="mianmian mianmian-component"></i>
                 <span>基础题库</span>
               </el-menu-item>
-              <el-menu-item :index="'/questions/choice'" @click="saveNavState('/questions/choice')" :class="artice === '/questions/choice' ? 'activeItem' : ''">
+              <el-menu-item :index="'/questions/choice'" @click="saveNavState('/questions/choice')" :class="artice === '/questions/choice' ? 'activeItem' : ''" ref="/questions/choice">
                 <i class="mianmian mianmian-component"></i>
                 <span>精选题库</span>
               </el-menu-item>
-              <el-menu-item :index="'/questions/new'" @click="saveNavState('/questions/new')" :class="artice === '/questions/new' ? 'activeItem' : ''">
+              <el-menu-item :index="'/questions/new'" @click="saveNavState('/questions/new')" :class="artice === '/questions/new' ? 'activeItem' : ''" ref="/questions/new">
                 <i class="mianmian mianmian-component"></i>
                 <span>试题录入</span>
               </el-menu-item>
-              <el-menu-item :index="'/questions/randoms'" @click="saveNavState('/questions/randoms')" :class="artice === '/questions/randoms' ? 'activeItem' : ''">
+              <el-menu-item :index="'/questions/randoms'" @click="saveNavState('/questions/randoms')" :class="artice === '/questions/randoms' ? 'activeItem' : ''" ref="/questions/randoms">
                 <i class="mianmian mianmian-component"></i>
                 <span>组题列表</span>
               </el-menu-item>
@@ -115,21 +115,21 @@
               <span>学科管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item :index="'/subjects/list'" @click="saveNavState('/subjects/list')" :class="artice === '/subjects/list' ? 'activeItem' : ''">
+              <el-menu-item :index="'/subjects/list'" @click="saveNavState('/subjects/list')" :class="artice === '/subjects/list' ? 'activeItem' : ''" ref="/subjects/list">
                 <i class="mianmian mianmian-component"></i>
                 <span>学科</span>
               </el-menu-item>
-              <el-menu-item :index="'/subjects/directorys'" @click="saveNavState('/subjects/directorys')" :class="artice === '/subjects/directorys' ? 'activeItem' : ''">
+              <el-menu-item :index="'/subjects/directorys'" @click="saveNavState('/subjects/directorys')" :class="artice === '/subjects/directorys' ? 'activeItem' : ''" ref="/subjects/directorys">
                 <i class="mianmian mianmian-component"></i>
                 <span>目录</span>
               </el-menu-item>
-              <el-menu-item :index="'/subjects/tags'" @click="saveNavState('/subjects/tags')" :class="artice === '/subjects/tags' ? 'activeItem' : ''">
+              <el-menu-item :index="'/subjects/tags'" @click="saveNavState('/subjects/tags')" :class="artice === '/subjects/tags' ? 'activeItem' : ''" ref="/subjects/tags">
                 <i class="mianmian mianmian-component"></i>
                 <span>标签</span>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item :index="'/articles/list'" @click="saveNavState('/articles/list')" :class="artice === '/articles/list' ? 'activeItem' : ''">
+          <el-menu-item :index="'/articles/list'" @click="saveNavState('/articles/list')" :class="artice === '/articles/list' ? 'activeItem' : ''" ref="/articles/list">
             <i class="mianmian mianmian-component"></i>
             <span>
               <span>面试技巧</span>
@@ -139,6 +139,13 @@
       </el-aside>
       <!-- 主题 -->
       <el-main class="main-container">
+        <div class="tag">
+          <el-button v-for="tag in tagList" :key="tag.path" :type="tag.type" class="tagbc" :class="isActive(tag)? 'active' : ''" @click.prevent="asd(tag)" ref='tag'>
+              {{tag.title}}
+              <span class="el-icon-close" @click="deleteTag(tag, tagList)"></span>
+          </el-button>
+        </div>
+        <!-- <el-card>123</el-card> -->
         <router-view />
         <div class="bottom">
           <p>
@@ -155,7 +162,7 @@
 
 <script>
 import { profile } from '@/api/user'
-// import '@/utils/storage'
+import { mapState } from 'vuex'
 
 export default {
   name: 'HomeIndex',
@@ -170,11 +177,80 @@ export default {
       artice: ''
     }
   },
+  computed: {
+    ...mapState(['tagList', 'nextItem'])
+  },
+  watch: {
+    $route () {
+      // console.log('监听路由变化', this.$route)
+      this.$store.commit('addTag', this.$route)
+    }
+  },
   methods: {
+    asd (tag) {
+      // console.log(tag.path, '点击的path')
+      // console.log(this.$refs, 'ref')
+      const con = this.$refs
+      // console.log(con, 'nadao')
+      Object.keys(con).forEach(function (k) {
+        // console.log(k)
+        if (tag.path === k) {
+          // console.log(con[k], '拿到！')
+          con[k].$el.click()
+        }
+      })
+      // this.$refs.menu.$children[0].$el.click()
+    },
+    // 判断选中状态
+    isActive (tag) {
+      // console.log(tag, '草原')
+      // this.tagActive = tag.path
+      return tag.path === this.$route.path
+    },
+    // 删除标签
+    deleteTag (tag, tagList) {
+      this.$store.commit('deleteTag', tag)
+      // console.log(tagList[tagList.length - 1].path, '我是一只鱼')
+      // console.log(tag.path, '删除的路径')
+      // console.log(tagList, '大数据')
+      // console.log(tagList[tagList.length - 1].path, '数组最后一个数据')
+      // console.log(this.nextItem, '1231312')
+      // if (tag.path === tagList[tagList.length - 1].path) {
+      // console.log('有效')
+      // const ion = tagList[tagList.length - 1].path
+      // console.log(this.tagList.indexOf(tag), '000000000')
+      if (this.isActive(tag)) {
+        const con = this.$refs
+        const ion = this.nextItem
+        // console.log(con, 'asdad', ion, '1213')
+        Object.keys(con).forEach(function (k) {
+          // console.log(ion.path, 'hahah', k, 'k')
+          if (ion.path === k) {
+            // console.log(con[k], '1231231')
+            con[k].$el.click()
+          }
+        })
+      }
+      // console.log(this.tagList, '数组')
+      // console.log(tag, '删除')
+      // }
+    },
+    handleClose (tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+    },
     // 保存路由
     saveNavState (active) {
       window.sessionStorage.setItem('activePath', active)
       this.artice = active
+
+      // console.log(window.sessionStorage.getItem('activePath'))
+      // if (this.dynamicTags.indexOf(this.$route.meta.name) === -1) {
+      //   this.dynamicTags.push(this.$route.meta.name)
+      // }
+      // this.dynamicTags.push(this.$route.meta.name)
+      // console.log(this.$route.meta.name)
+      // window.sessionStorage.setItem('tag', JSON.stringify(this.dynamicTags))
+      // console.log(this.dynamicTags)
     },
     async loadUserProfile () {
       try {
@@ -209,12 +285,71 @@ export default {
   created () {
     this.loadUserProfile()
     this.artice = window.sessionStorage.getItem('activePath')
-    console.log(this.artice, '1231')
+    // this.dynamicTags = window.sessionStorage.getItem('tag')
+    // console.log(this.artice, '1231')
+    // this.tagList.push({
+    //   name: 'dashboard',
+    //   path: '/dashboard',
+    //   title: '数据概览'
+    // })
   }
 }
 </script>
 
 <style lang='less' scoped>
+.active {
+  background-color: rgb(35, 150, 247);
+  color: #fff!important;
+}
+.tag {
+  .tagbc {
+    // width: 50px;
+    // box-shadow: 2px 2px 2px #888888;
+    // background-color: rgb(35, 150, 247);
+    // background-color: #fff;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+    padding: 0 5px;
+    text-decoration: none;
+    color: #000;
+    font-size: 12px;
+    // border: 1px solid #000;
+    height: 26px;
+    line-height: 26px;
+    /deep/ .el-icon-close {
+      margin-left: 10px;
+      color: #000!important;
+    }
+    /deep/ .el-icon-close:hover {
+      background-color: rgb(156, 156, 156);
+      border-radius: 50%;
+    }
+  }
+  box-shadow: 5px 5px 5px #888888;
+  margin-top: -20px;
+  margin-left: -20px;
+  margin-bottom: 15px;
+  // margin-right: 10px;
+  padding: 0 20px;
+  width: 1204px;
+  background-color: #fff;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  .el-tag {
+    cursor: pointer;
+    border-radius: 0px;
+    background-color: rgb(35, 150, 247);
+    height: 26px;
+    color: #fff;
+    text-align: center;
+    line-height: 26px;
+    /deep/ .el-icon-close {
+      margin-left: 10px;
+      color: #fff!important;
+    }
+  }
+}
 .bgcActive {
   background-color: red;
 }
@@ -300,6 +435,9 @@ export default {
       rgb(45, 202, 248)
     );
     color: #fff;
+  }
+  .el-tag + .el-tag {
+    margin-left: 10px;
   }
 }
 </style>
