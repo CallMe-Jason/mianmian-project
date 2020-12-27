@@ -114,6 +114,7 @@ export default {
           this.$store.commit('getUser', data)
           this.$store.commit('setPathState', '/dashboard')
           this.$router.push('/dashboard')
+          this.$message.success('登录成功')
         } catch (err) {
           this.$message('登录失败，请稍后重试！')
         }
