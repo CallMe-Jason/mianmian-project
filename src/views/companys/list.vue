@@ -1,5 +1,9 @@
 <template>
   <div class="companys-list">
+    <el-breadcrumb>
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>企业管理</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-card class="box-card">
       <!-- 搜索区域 -->
       <list-input @search="loadCompanys" />
