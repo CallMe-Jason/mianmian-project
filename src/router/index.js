@@ -83,7 +83,7 @@ const routes = [
       {
         path: '/subjects/tags',
         name: 'SubjectsTags',
-        component: () => import('@/views/subjects/tags')
+        component: () => import('@/views/subject-tags')
       },
       {
         path: '/articles/list',

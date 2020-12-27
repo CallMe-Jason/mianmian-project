@@ -5,10 +5,10 @@
         <el-col :span='18'>
           <el-form label-width="80px">
             <el-form-item
-              label="目录名称"
+              label="标签名称"
               size='small'
             >
-              <el-input v-model="query.directoryName"></el-input>
+              <el-input v-model="query.tagName"></el-input>
             </el-form-item>
             <el-form-item
               label="状态"
@@ -43,7 +43,7 @@
             </el-form-item>
           </el-form>
         </el-col>
-        <!-- 新增目录 -->
+        <!-- 新增标签 -->
         <el-col
           :span='6'
           class="btnRightAdd"
@@ -54,7 +54,7 @@
             icon='el-icon-edit'
             @click='getsubjectList'
           >
-            新增目录
+            新增标签
           </el-button>
         </el-col>
       </el-row>
@@ -84,8 +84,8 @@
         >
         </el-table-column>
         <el-table-column
-          label="目录名称"
-          prop='directoryName'
+          label="标签名称"
+          prop='tagName'
           width="170px"
         >
         </el-table-column>
@@ -163,7 +163,7 @@
 
     <!-- 新增目录对话框 -->
     <el-dialog
-      title="新增目录"
+      title="新增标签"
       :visible.sync="dialogVisible"
       width="26%"
       @close='dialog__close'
@@ -189,13 +189,13 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          label='目录名称'
-          prop='directoryName'
+          label='标签名称'
+          prop='tagName'
         >
           <el-input
-            placeholder="请输入目录名称"
+            placeholder="请输入标签名称"
             size='small'
-            v-model="ruleForm.directoryName"
+            v-model="ruleForm.tagName"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -212,7 +212,7 @@
     </el-dialog>
     <!-- 修改目录项对话框 -->
     <el-dialog
-      title="修改目录"
+      title="修改标签"
       :visible.sync="editDialogVisible"
       width="26%"
       @close='dialog__close'
@@ -238,13 +238,13 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          label='目录名称'
-          prop='directoryName'
+          label='标签名称'
+          prop='tagName'
         >
           <el-input
-            placeholder="请输入目录名称"
+            placeholder="请输入标签名称"
             size='small'
-            v-model="option.directoryName"
+            v-model="option.tagName"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -265,7 +265,7 @@
 
 <script>
 import dayjs from '@/utils/dayjs'
-import { getDirectorysList, getSubjectList, addSubject, changeSubjectState, getSubjectDetails, subSubject, deleteSubjectItem } from '@/api/subject-catalog'
+import { getTagList, getSubjectList, addSubject, changeSubjectState, getSubjectDetails, subSubject, deleteSubjectItem } from '@/api/subject-tags'
 export default {
   name: 'SubjectCatalog',
   components: {},
@@ -276,7 +276,7 @@ export default {
         page: 1,
         pagesize: 10,
         subjectID: null,
-        directoryName: null,
+        tagName: null,
         state: null
       },
       list: [],
@@ -287,10 +287,10 @@ export default {
       options: [],
       ruleForm: {
         subjectID: '',
-        directoryName: ''
+        tagName: ''
       },
       rules: {
-        directoryName: [{ required: true, message: '请输入目录名称', trigger: 'blur' }]
+        tagName: [{ required: true, message: '请输入目录名称', trigger: 'blur' }]
       },
       option: {}
     }
@@ -306,7 +306,7 @@ export default {
     // 获取数据列表
     async getList () {
       try {
-        const { data } = await getDirectorysList(this.query)
+        const { data } = await getTagList(this.query)
         console.log(data);
         this.list = data.items
         this.counts = data.counts
@@ -340,10 +340,11 @@ export default {
     async addDirectory () {
       this.dialogVisible = false
       try {
-        await addSubject({
+        const { data } = await addSubject({
           subjectID: this.ruleForm.subjectID,
-          directoryName: this.ruleForm.directoryName
+          tagName: this.ruleForm.tagName
         })
+        console.log(data);
         this.$message.success('添加成功！')
         this.getList()
       } catch (err) {
@@ -371,7 +372,7 @@ export default {
     },
     // 清除输入框
     clearInput () {
-      this.query.directoryName = ''
+      this.query.tagName = ''
       this.query.state = null
       this.getList()
     },
@@ -425,7 +426,7 @@ export default {
           this.$message.error('删除失败！')
         }
       }
-    }
+    },
   },
 }
 </script>
