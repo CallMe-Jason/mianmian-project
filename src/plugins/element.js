@@ -1,26 +1,70 @@
 import Vue from 'vue'
 import {
   Button,
-  Card,
   Form,
-  Alert,
-  Table,
-  TableColumn,
+  FormItem,
+  Input,
+  Message,
+  ColorPicker,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  Tooltip,
   Select,
   Option,
-  FormItem,
+  Container,
+  Header,
+  Aside,
+  Main,
+  Submenu,
+  MenuItemGroup,
+  MenuItem,
+  Menu,
+  Card,
   Row,
-  Col
+  Col,
+  Alert,
+  TabPane,
+  Tabs,
+  Table,
+  TableColumn,
+  MessageBox,
+  Dialog,
+  Radio,
+  RadioGroup,
+  Upload
 } from 'element-ui'
 
 Vue.use(Button)
+Vue.use(Container)
+Vue.use(Header)
+Vue.use(Aside)
+Vue.use(Main)
+Vue.use(Submenu)
+Vue.use(MenuItemGroup)
+Vue.use(MenuItem)
+Vue.use(Menu)
 Vue.use(Card)
-Vue.use(Form)
-Vue.use(Alert)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(Select)
-Vue.use(Option)
-Vue.use(FormItem)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Alert)
+Vue.use(TabPane)
+Vue.use(Tabs)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(ColorPicker)
+Vue.use(Dropdown)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
+Vue.use(Tooltip)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Dialog)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(Upload)
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm

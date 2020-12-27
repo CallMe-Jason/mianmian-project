@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
@@ -8,8 +8,11 @@
 // import qusetion from '@/views/question'
 export default {
   name: 'app',
-  components: {}
+  components: {
+  }
 }
 </script>
 
-<style></style>
+<style>
+
+</style>
