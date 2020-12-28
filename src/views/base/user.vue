@@ -347,6 +347,7 @@ export default {
           const res = await addUserInfo(this.addForm)
           // 关闭弹出层
           this.addDialogVisible = false
+          this.$message.success('添加用户成功')
           this.getUserList()
         } catch (err) {
           this.$message.error('添加用户列表失败！')

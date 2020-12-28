@@ -63,7 +63,7 @@ export default {
   name: 'Login',
   components: {},
   props: {},
-  data () {
+  data() {
     // 自定义邮箱验证
     const checkEmail = (rule, value, callback) => {
       // 验证邮箱的正则表达式
@@ -96,7 +96,7 @@ export default {
     ...mapState(['lang'])
   },
   methods: {
-    submitForm () {
+    submitForm() {
       this.$refs.loginFormRef.validate(async valid => {
         // console.log(valid)
         if (!valid) return false
@@ -137,11 +137,11 @@ export default {
 <style lang="less" scoped>
 .login-container {
   height: 100%;
-  background: url("~@/assets/bg.2f46505a.jpg") no-repeat;
+  background: url('~@/assets/bg.2f46505a.jpg') no-repeat;
   background-size: cover;
   .login-box {
     height: 100%;
-    background: url("~@/assets/logingBg.989212c0.png") no-repeat center right;
+    background: url('~@/assets/logingBg.989212c0.png') no-repeat center right;
   }
 
   .login-form {

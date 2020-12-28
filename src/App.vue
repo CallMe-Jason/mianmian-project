@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// import qusetion from '@/views/question'
 export default {
   name: 'app',
   components: {

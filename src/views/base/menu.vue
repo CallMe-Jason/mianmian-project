@@ -1,6 +1,11 @@
 <!-- 组件说明 -->
 <template>
   <div class="menus-container">
+    <el-breadcrumb>
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>后台管理</el-breadcrumb-item>
+      <el-breadcrumb-item>菜单</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-card class="box-card">
       <el-row>
         <el-button class="add" type="success" icon="el-icon-edit" size="mini" @click="additionMenu"
@@ -118,6 +123,21 @@ export default {
   },
 
   methods: {
+    async del (row) {
+       const confirmResult = await this.$confirm(
+        '此操作将永久删除该题目, 是否继续?',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).catch(err => err)
+      console.log(confirmResult)
+      // 如果用户点击确认,则confirmResult打印结果为confirm
+      if (confirmResult !== 'confirm') return this.$message.info('已取消删除') // 当confirmResult不等于字符串confirm时,提示用户取消
+      // 点击确定，发送删除请求
+    },
     async getlist () {
       const { data } = await getmenulists()
       this.list = this.transform(data, 0)

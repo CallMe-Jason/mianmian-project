@@ -1,5 +1,10 @@
 <template>
   <div class="BasePermission">
+    <el-breadcrumb class="forwtx">
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>后台管理</el-breadcrumb-item>
+      <el-breadcrumb-item>权限</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-card>
       <el-row>
         <el-col :span="4" class="BasePermission-col">
@@ -287,6 +292,13 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.forwtx {
+  // position: absolute;
+  // background-color: red;
+  position: absolute;
+  top: -90px;
+  left: 40px;
+}
 /deep/ .el-dialog {
   border-radius: 10px;
   overflow: hidden;

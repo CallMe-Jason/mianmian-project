@@ -1,5 +1,10 @@
 <template>
   <div class="subject-catalog">
+    <el-breadcrumb>
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>学科管理</el-breadcrumb-item>
+      <el-breadcrumb-item>目录</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-card>
       <el-row>
         <el-col :span='18'>

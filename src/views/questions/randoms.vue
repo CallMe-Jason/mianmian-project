@@ -1,5 +1,10 @@
 <template>
   <div class="QuestionsRandoms">
+    <el-breadcrumb>
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>题库管理</el-breadcrumb-item>
+      <el-breadcrumb-item>组题列表</el-breadcrumb-item>
+    </el-breadcrumb>
     <!-- 卡片区域 -->
     <el-card>
       <!-- 搜索表单 -->
