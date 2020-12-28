@@ -32,7 +32,9 @@ import {
   Dialog,
   Radio,
   RadioGroup,
-  Upload
+  Upload,
+  CheckboxGroup,
+  Checkbox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -66,5 +68,7 @@ Vue.use(Dialog)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(Upload)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

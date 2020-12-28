@@ -27,17 +27,27 @@
     【题干】：
     <div style="color: blue;" v-html="basiclist.question"></div>
     <div>
-      <div style="padding-bottom: 5px;">
+      <div style="padding-bottom: 5px;" v-if="basiclist.questionType === '1'">
         单选题 选项：（以下选中的选项为正确答案）
+      </div>
+      <div style="padding-bottom: 5px;" v-if="basiclist.questionType === '2'">
+        多选题 选项：（以下选中的选项为正确答案）
+      </div>
+      <div style="padding-bottom: 5px;" v-if="basiclist.questionType === '3'">
+        简答题 选项：（以下选中的选项为正确答案）
       </div>
       <div
         style="padding: 8px 0px;"
         v-for="item in basiclist.options"
         :key="item.id"
       >
-        <el-radio v-model="radio" :label="item.isRight">{{
-          item.title
-        }}</el-radio>
+        <el-radio
+          v-model="radio"
+          :label="item.isRight"
+          :class="item.isRight === 0 ? 'disbaled' : ''"
+        >
+          {{ item.title }}
+        </el-radio>
       </div>
     </div>
     <hr />
@@ -90,4 +100,12 @@ export default {
   methods: {}
 }
 </script>
-<style scoped lang="less"></style>
+<style scoped lang="less">
+// /deep/ .el-radio__input {
+//   color: blue !important;
+// }
+.disbaled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+</style>

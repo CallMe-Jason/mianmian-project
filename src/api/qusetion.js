@@ -32,7 +32,7 @@ export const addChoice = (id, choiceState) => {
 export const getSubjects = params => {
   return request({
     method: 'GET',
-    url: '/subjects',
+    url: '/subjects/simple',
     params
   })
 }
@@ -84,7 +84,7 @@ export const getCompany = () => {
 export const addQusetion = data => {
   return request({
     method: 'POST',
-    url: ' /questions',
+    url: '/questions',
     data
   })
 }

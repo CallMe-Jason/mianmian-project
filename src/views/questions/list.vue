@@ -43,7 +43,7 @@
               size="small"
               circle
               plain
-              @click="$router.push('/questions/new')"
+              @click="editQusetion(scope.row)"
             ></el-button>
             <el-button
               type="danger"
@@ -203,6 +203,14 @@ export default {
       this.queryInfo = val
       console.log(this.queryInfo)
       this.getQusetion(this.queryInfo)
+    },
+    editQusetion(val) {
+      this.$router.push({
+        path: '/questions/new',
+        query: {
+          id: val.id
+        }
+      })
     }
   }
 }

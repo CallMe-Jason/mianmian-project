@@ -19,10 +19,10 @@
             @change="Change"
           >
             <el-option
-              v-for="(item, index) in subjectlist"
-              :key="index"
-              :label="item.subjectName"
-              :value="item.id"
+              v-for="item in subjectlist"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -217,9 +217,9 @@ export default {
         city: [{ citys: '' }, { areaCtiyListvalue: '' }]
       },
       // 获取学科数据的数组
-      subjectlist: [],
+      subjectlist: {},
       // 获取目录
-      Directorylist: [],
+      Directorylist: {},
       // 获取标签数据
       taglist: [],
       // 试题类型
@@ -300,7 +300,7 @@ export default {
       try {
         const { data } = await getSubjects()
         console.log(data, 11)
-        this.subjectlist = data.items
+        this.subjectlist = data
       } catch (err) {
         this.$message.error('获取学科数据失败')
       }

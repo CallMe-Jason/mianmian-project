@@ -18,9 +18,9 @@
           >
             <el-option
               v-for="item in subjectlist"
-              :key="item.id"
-              :label="item.subjectName"
-              :value="item.id"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -62,7 +62,7 @@
           <el-select
             class="left"
             size="small"
-            v-model="ruleForm.ctiy"
+            v-model="ruleForm.city.citys"
             placeholder="请选择"
             @change="changeCity"
           >
@@ -76,7 +76,7 @@
           <el-select
             class="right"
             size="small"
-            v-model="ruleForm.value"
+            v-model="ruleForm.city.areaCtiyListvalue"
             placeholder="请选择"
           >
             <el-option
@@ -89,7 +89,7 @@
         </el-form-item>
         <!-- /城市 -->
         <!-- 方向 -->
-        <el-form-item label="企业:" prop="directions">
+        <el-form-item label="方向:" prop="directions">
           <el-select
             v-model="ruleForm.directions"
             placeholder="请选择"
@@ -105,8 +105,8 @@
         </el-form-item>
         <!-- /方向 -->
         <!-- 题型 -->
-        <el-form-item label="题型:" prop="questionType">
-          <el-radio-group v-model="radio">
+        <el-form-item label="题型:" prop="radio">
+          <el-radio-group v-model="ruleForm.radio">
             <el-radio :label="1">单选</el-radio>
             <el-radio :label="2">多选</el-radio>
             <el-radio :label="3">简答</el-radio>
@@ -114,8 +114,8 @@
         </el-form-item>
         <!-- /题型 -->
         <!-- 难度 -->
-        <el-form-item label="难度:" prop="difficulty">
-          <el-radio-group v-model="radios">
+        <el-form-item label="难度:" prop="difficultyradio">
+          <el-radio-group v-model="ruleForm.difficultyradio">
             <el-radio :label="1">简单</el-radio>
             <el-radio :label="2">一般</el-radio>
             <el-radio :label="3">困难</el-radio>
@@ -123,20 +123,24 @@
         </el-form-item>
         <!-- /难度 -->
         <!-- 题干 -->
-        <el-form-item label="题干:" prop="question">
+        <el-form-item label="题干:" prop="options">
           <!-- 副文本编译器组件 v-model将里面的内容双向绑定到data中-->
-          <quill-editor v-model="ruleForm.questions" :options="editorOption">
+          <quill-editor v-model="ruleForm.options" :options="editorOption">
           </quill-editor>
         </el-form-item>
         <!-- /题干 -->
-        <!-- 选项 -->
-        <el-form-item label="选项:" prop="option">
+        <!-- 单选选项 -->
+        <el-form-item
+          label="选项:"
+          prop="optionRadio"
+          v-if="ruleForm.radio === 1"
+        >
           <div class="option_item" v-for="item in optionList" :key="item.value">
-            <el-radio v-model="optionRadio" :label="item.value"
-              >{{ item.label }}:
-            </el-radio>
+            <el-radio-group v-model="optionRadio">
+              <el-radio :label="item.isRight">{{ item.code }}: </el-radio>
+            </el-radio-group>
             <!-- input输入框 -->
-            <el-input v-model="options"></el-input>
+            <el-input v-model="item.title"></el-input>
             <!-- 上传图片 -->
             <el-upload
               class="avatar-uploader"
@@ -153,15 +157,44 @@
             >+增加选项与答案</el-button
           >
         </el-form-item>
+        <!-- /单选选项 -->
+        <!-- 多选选项 -->
+        <el-form-item
+          label="选项:"
+          prop="optionRadio"
+          v-if="ruleForm.radio === 2"
+        >
+          <div class="option_item" v-for="item in optionList" :key="item.code">
+            <el-checkbox v-model="ruleForm.chenkRadio" :label="item.isRight"
+              >{{ item.code }}:
+            </el-checkbox>
+            <!-- input输入框 -->
+            <el-input v-model="item.title"></el-input>
+            <!-- 上传图片 -->
+            <el-upload
+              class="avatar-uploader"
+              :action="uploadURL"
+              :on-success="handleSuccess"
+              :on-remove="handleRemove"
+              :show-file-list="false"
+            >
+              <span>上传图片</span>
+              <i class="el-icon-circle-close"></i>
+            </el-upload>
+          </div>
+          <el-button type="danger" size="small" @click="addCheck"
+            >+增加选项与答案</el-button
+          >
+        </el-form-item>
         <!-- /选项 -->
         <!-- 解析视频 -->
-        <el-form-item label="解析视频:">
-          <el-input></el-input>
+        <el-form-item label="解析视频:" prop="videoURL">
+          <el-input v-model="ruleForm.videoURL"></el-input>
         </el-form-item>
         <!-- /解析视频 -->
         <!-- 答案解析 -->
         <el-form-item label="答案解析">
-          <quill-editor v-model="ruleForm.questions" :options="editorOption">
+          <quill-editor v-model="ruleForm.question" :options="editorOption">
           </quill-editor>
         </el-form-item>
         <!-- /答案解析 -->
@@ -176,7 +209,12 @@
         <!-- /题目备注 -->
         <!-- 试题标签 -->
         <el-form-item label="试题标签:" prop="tag">
-          <el-select v-model="ruleForm.tag" placeholder="请选择" size="medium">
+          <el-select
+            v-model="ruleForm.tag"
+            multiple
+            placeholder="请选择"
+            size="medium"
+          >
             <el-option
               v-for="item in taglist"
               :key="item.value"
@@ -203,8 +241,9 @@ import {
   getSubjects,
   getDirectorys,
   getCompany,
-  getTags
-  // addQusetion
+  getTags,
+  addQusetion,
+  getBasicQusetion
 } from '@/api/qusetion'
 import { datas } from '@/utils/citys'
 import { direction } from '@/utils/direction'
@@ -215,28 +254,51 @@ export default {
   created() {
     this.getSubjectList()
     this.getCompanyList()
+    this.getBasicQusetion()
   },
   data() {
     return {
       ruleForm: {
+        // 学科
         subject: '',
+        // 目录
         directory: '',
+        // 企业
         company: '',
-        ctiy: '',
+        // 城市
+        city: [{ citys: '' }, { areaCtiyListvalue: '' }],
+        // 方向
         directions: '',
-        questionType: '',
-        difficulty: '',
-        vlue: '',
-        questions: '',
+        // 题型
+        radio: 1,
+        // 题干
         options: '',
+        // 题目备注
         textarea: '',
-        tag: ''
-      },
+        // 解析视频
+        videoURL: '',
 
-      // 获取学科的数组
-      subjectlist: [],
+        // 答案解析
+        question: '',
+        tag: '',
+        // 难度
+        difficultyradio: 1,
+
+        chenkRadio: [1]
+      },
+      // 选项
+      optionRadio: 1,
+      optionList: [
+        { isRight: false, code: 'A', img: '', title: '' },
+        { isRight: false, code: 'B', img: '', title: '' },
+        { isRight: false, code: 'C', img: '', title: '' },
+        { isRight: false, code: 'D', img: '', title: '' }
+      ],
+      optionLists: [],
+      // 获取学科
+      subjectlist: {},
       // 获取目录的详情
-      directorylist: [],
+      directorylist: {},
       // 企业详情
       companylist: [],
       // 城市
@@ -245,24 +307,24 @@ export default {
       areaCtiyList: [],
       // 方向
       direction,
-      radio: 2,
-      radios: 1,
       // 题干
-
-      optionRadio: 1,
 
       taglist: [],
 
       rules: {
-        subject: [{ required: true, message: '请选择学科', trigger: 'blur' }],
-        directory: [{ required: true, message: '请选择目录', trigger: 'blur' }],
-        company: [{ required: true, message: '请选择企业', trigger: 'blur' }],
-        ctiy: [{ required: true, message: '请选择地区', trigger: 'blur' }],
-        directions: [
-          { required: true, message: '请选择地区', trigger: 'blur' }
+        subject: [{ required: true, message: '请选择学科', trigger: 'change' }],
+        directory: [
+          { required: true, message: '请选择目录', trigger: 'change' }
         ],
-        questionType: [{ required: true, message: '请选择', trigger: 'blur' }],
-        difficulty: [{ required: true, message: '请选择', trigger: 'blur' }]
+        company: [{ required: true, message: '请选择企业', trigger: 'change' }],
+        city: [{ required: true, message: '请选择地区', trigger: 'change' }],
+        directions: [
+          { required: true, message: '请选择地区', trigger: 'change' }
+        ],
+        radio: [{ required: true, message: '请选择', trigger: 'change' }],
+        difficultyradio: [
+          { required: true, message: '请选择', trigger: 'change' }
+        ]
       },
       editorOption: {
         modules: {
@@ -275,13 +337,40 @@ export default {
         }
       },
       // 上传图片地址
-      uploadURL: 'https://jsonplaceholder.typicode.com/posts/',
-      optionList: [
-        { value: 1, label: 'A' },
-        { value: 2, label: 'B' },
-        { value: 3, label: 'C' },
-        { value: 4, label: 'D' }
-      ]
+      uploadURL: 'https://jsonplaceholder.typicode.com/posts/'
+    }
+  },
+  // 计算属性
+  computed: {
+    // 筛选出当前选择的数据
+    filterData() {
+      return {
+        // 学科id
+        subjectID: this.ruleForm.subject,
+        // 目录id
+        catalogID: this.ruleForm.directory,
+        // 企业id
+        enterpriseID: this.ruleForm.company,
+        // 城市
+        province: this.ruleForm.city.citys,
+        city: this.ruleForm.city.areaCtiyListvalue,
+        // 方向
+        direction: this.ruleForm.directions,
+        // 题型
+        questionType: this.ruleForm.radio.toString(),
+        // 难度
+        difficulty: this.ruleForm.difficultyradio.toString(),
+        // 题干
+        question: this.ruleForm.options,
+        // 选项
+        options: this.optionList,
+        // 解析视频
+        videoURL: this.ruleForm.videoURL,
+        // 答案解析
+        answer: this.ruleForm.question,
+        remarks: this.ruleForm.textarea,
+        tags: this.ruleForm.tag.join()
+      }
     }
   },
   methods: {
@@ -289,7 +378,7 @@ export default {
       try {
         const { data } = await getSubjects()
         console.log(data, 11)
-        this.subjectlist = data.items
+        this.subjectlist = data
       } catch (err) {
         this.$message.error('获取学科数据失败')
       }
@@ -302,12 +391,12 @@ export default {
           subjectID: value
         })
         console.log(data)
-        this.Directorylist = data
+        this.directorylist = data
 
         const { data: res } = await getTags({
           subjectID: value
         })
-        console.log(res)
+        console.log(res, 123)
         this.taglist = res
       } catch (err) {
         this.$message.error('获取目录数据失败')
@@ -324,12 +413,30 @@ export default {
     // 当城市发生改变时this.datas.forEach()
     changeCity(val) {
       // console.log(val, '111')
-      const areaList = this.ruleForm.datas.filter((item, index) => {
+      const areaList = this.datas.filter((item, index) => {
         return item.city === val
       })
       console.log(areaList[0].area, '11211')
       this.areaCtiyList = areaList[0].area
     },
+    // 当选项发生变化时
+    getQuestion() {
+      console.log(this.optionRadio)
+      if (!this.optionRadio) {
+        return this.$message.error('请选择正确的选项')
+      }
+      // 查找是否有与this.optionRadio相等的值，有的话就返回其索引
+      const index = this.optionList.findIndex((item, index) => {
+        console.log(item, 124)
+        // console.log(this.optionRadio)
+        return this.optionRadio === item.code
+      })
+      // console.log(index, 888)
+      this.optionList[index].isRight = true
+      this.ruleForm.option = this.optionList[index]
+    },
+    // 点击新增按钮
+    addCheck() {},
     // 处理图片预览效果
     handleSuccess(response) {
       console.log(response)
@@ -340,13 +447,41 @@ export default {
     },
     formSuccess() {
       console.log(this.$refs.ruleFormRef)
-      this.$refs.ruleFormRef.resetFields()
-      // this.$refs.ruleFormRef.validateField(async valid => {
-      //   try {
-      //     const { data } = await addQusetion({})
-      //     console.log(data)
-      //   } catch (err) {}
-      // })
+      // this.$refs.ruleFormRef.resetFields()
+      this.getQuestion()
+      this.$refs.ruleFormRef.validate(async valid => {
+        try {
+          const { data } = await addQusetion(this.filterData)
+          console.log(data, 3)
+          this.$router.push('/questions/list')
+        } catch (err) {
+          console.log(err)
+          this.$message.error('新增试题失败')
+        }
+      })
+    },
+    // 如果地址栏有携带id值
+    async getBasicQusetion() {
+      console.log(this.$route)
+      try {
+        const { data } = await getBasicQusetion(this.$route.query.id)
+        console.log(data, 1111)
+        this.ruleForm.subject = data.subjectName
+        this.ruleForm.directory = data.directoryName
+        this.ruleForm.company = data.enterpriseID
+        this.ruleForm.city.citys = data.province
+        this.ruleForm.city.areaCtiyListvalue = data.city
+        this.ruleForm.directions = data.direction
+        this.ruleForm.radio = parseInt(data.questionType)
+        this.ruleForm.difficultyradio = parseInt(data.difficulty)
+        this.ruleForm.options = data.question
+        this.optionList = data.options
+        this.ruleForm.videoURL = data.videoURL
+        this.ruleForm.question = data.answer
+        this.ruleForm.textarea = data.remarks
+        // console.log(data.tags.split(','))
+        this.ruleForm.tag = data.tags.split(',')
+      } catch (err) {}
     }
   }
 }
