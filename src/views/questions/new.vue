@@ -142,7 +142,7 @@
         >
           <div class="option_item" v-for="item in optionList" :key="item.value">
             <el-radio-group v-model="optionRadio">
-              <el-radio :label="item.isRight">{{ item.code }}: </el-radio>
+              <el-radio :label="item.code">{{ item.code }}: </el-radio>
             </el-radio-group>
             <!-- input输入框 -->
             <el-input v-model="item.title"></el-input>
@@ -170,7 +170,7 @@
           v-if="ruleForm.radio === 2"
         >
           <div class="option_item" v-for="item in optionList" :key="item.code">
-            <el-checkbox v-model="ruleForm.chenkRadio" :label="item.isRight"
+            <el-checkbox v-model="ruleForm.chenkRadio" :label="item.code"
               >{{ item.code }}:
             </el-checkbox>
             <!-- input输入框 -->
@@ -453,6 +453,10 @@ export default {
       console.log(file)
     },
     formSuccess() {
+     if (this.$route.query.id) {
+        alert('待开发')
+        return
+     }
       console.log(this.$refs.ruleFormRef)
       // this.$refs.ruleFormRef.resetFields()
       this.getQuestion()
