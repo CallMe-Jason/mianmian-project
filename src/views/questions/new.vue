@@ -259,7 +259,9 @@ export default {
   created() {
     this.getSubjectList()
     this.getCompanyList()
-    this.getBasicQusetion()
+    if (this.$route.query.id) {
+      this.getBasicQusetion()
+    }
   },
   data() {
     return {
