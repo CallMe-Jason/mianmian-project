@@ -1,6 +1,8 @@
-@import './icon.less';
+@import "./icon.less";
 
-html, body, #app {
+html,
+body,
+#app {
   padding: 0;
   margin: 0;
   height: 100%;
@@ -14,5 +16,20 @@ html, body, #app {
   z-index: 2;
   .el-breadcrumb__inner {
     color: #fff!important;
+  }
+}
+.BaseMenu {
+  .menu-btn {
+    margin: 15px;
+  }
+  .el-table th.is-leaf {
+    background-color: #fafafa;
+    border-bottom: 2px solid #e8e8e8;
+  }
+}
+.BasePermission {
+  .el-table th.is-leaf {
+    background-color: #fafafa;
+    border-bottom: 2px solid #e8e8e8;
   }
 }

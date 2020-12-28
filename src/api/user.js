@@ -12,8 +12,26 @@ export const login = data => {
 }
 
 /**
- * 用户登录接口
+ * 用户菜单
  */
+export const getmenulists = () => {
+  return request({
+    method: 'GET',
+    url: '/menus'
+  })
+}
+
+/**
+ * 用户权限
+ */
+export const UserJurisdiction = params => {
+  return request({
+    method: 'GET',
+    url: '/permissions',
+    params
+  })
+}
+
 export const profile = () => {
   return request({
     method: 'POST',
@@ -72,5 +90,28 @@ export const dlterUserInfo = (target, data) => {
     method: 'PUT',
     url: `/users/${target}`,
     data
+  })
+}
+
+
+export const getMenuList = () => {
+  return request({
+    method: 'GET',
+    url: '/menus'
+  })
+}
+
+export const addMenuPre = data => {
+  return request({
+    method: 'POST',
+    url: '/permissions',
+    data
+  })
+}
+
+export const getPreList = id => {
+  return request({
+    method: 'GET',
+    url: `/permissions/${id}`
   })
 }
