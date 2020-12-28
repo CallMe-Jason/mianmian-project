@@ -216,7 +216,6 @@ export default {
           id: val.id
         }
       })
-      console.log(this.$refs, '123')
     }
   }
 }
