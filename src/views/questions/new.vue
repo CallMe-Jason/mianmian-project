@@ -28,7 +28,7 @@
         <!-- 目录 -->
         <el-form-item label="目录:" prop="directory">
           <el-select
-            v-model="ruleForm.directory"
+            v-model="ruleForm.directoryName"
             placeholder="请选择"
             size="medium"
           >
@@ -137,7 +137,7 @@
         >
           <div class="option_item" v-for="item in optionList" :key="item.value">
             <el-radio-group v-model="optionRadio">
-              <el-radio :label="item.isRight">{{ item.code }}: </el-radio>
+              <el-radio :label="item.code">{{ item.code }}: </el-radio>
             </el-radio-group>
             <!-- input输入框 -->
             <el-input v-model="item.title"></el-input>
@@ -164,23 +164,28 @@
           prop="optionRadio"
           v-if="ruleForm.radio === 2"
         >
-          <div class="option_item" v-for="item in optionList" :key="item.code">
-            <el-checkbox v-model="ruleForm.chenkRadio" :label="item.isRight"
-              >{{ item.code }}:
-            </el-checkbox>
-            <!-- input输入框 -->
-            <el-input v-model="item.title"></el-input>
-            <!-- 上传图片 -->
-            <el-upload
-              class="avatar-uploader"
-              :action="uploadURL"
-              :on-success="handleSuccess"
-              :on-remove="handleRemove"
-              :show-file-list="false"
+          <div class="option_item">
+            <el-checkbox-group
+              v-model="ruleForm.chenkRadio"
+              v-for="item in optionList"
+              :key="item.code"
             >
-              <span>上传图片</span>
-              <i class="el-icon-circle-close"></i>
-            </el-upload>
+              <el-checkbox :label="item.code">{{ item.code }}: </el-checkbox>
+
+              <!-- input输入框 -->
+              <el-input v-model="item.title"></el-input>
+              <!-- 上传图片 -->
+              <el-upload
+                class="avatar-uploader"
+                :action="uploadURL"
+                :on-success="handleSuccess"
+                :on-remove="handleRemove"
+                :show-file-list="false"
+              >
+                <span>上传图片</span>
+                <i class="el-icon-circle-close"></i>
+              </el-upload>
+            </el-checkbox-group>
           </div>
           <el-button type="danger" size="small" @click="addCheck"
             >+增加选项与答案</el-button
@@ -226,7 +231,14 @@
         <!-- /试题标签 -->
         <!-- 提交按钮 -->
         <el-form-item>
-          <el-button type="primary" size="medium" @click="formSuccess"
+          <el-button
+            v-if="$route.query.id"
+            type="success"
+            size="medium"
+            @click="formSuccess"
+            >确认修改</el-button
+          >
+          <el-button v-else type="primary" size="medium" @click="formSuccess"
             >确认提交</el-button
           >
         </el-form-item>
@@ -243,7 +255,8 @@ import {
   getCompany,
   getTags,
   addQusetion,
-  getBasicQusetion
+  getBasicQusetion,
+  editQusetion
 } from '@/api/qusetion'
 import { datas } from '@/utils/citys'
 import { direction } from '@/utils/direction'
@@ -254,7 +267,9 @@ export default {
   created() {
     this.getSubjectList()
     this.getCompanyList()
-    this.getBasicQusetion()
+    if (this.$route.query.id) {
+      this.getBasicQusetion()
+    }
   },
   data() {
     return {
@@ -284,12 +299,13 @@ export default {
         // 难度
         difficultyradio: 1,
 
-        chenkRadio: [1]
+        chenkRadio: []
       },
       // 选项
-      optionRadio: 1,
+      Radio: 'a',
+      optionRadio: 'B',
       optionList: [
-        { isRight: false, code: 'A', img: '', title: '' },
+        { isRight: true, code: 'A', img: '', title: '' },
         { isRight: false, code: 'B', img: '', title: '' },
         { isRight: false, code: 'C', img: '', title: '' },
         { isRight: false, code: 'D', img: '', title: '' }
@@ -369,7 +385,8 @@ export default {
         // 答案解析
         answer: this.ruleForm.question,
         remarks: this.ruleForm.textarea,
-        tags: this.ruleForm.tag.join()
+        tags: this.ruleForm.tag.join(),
+        id: this.ruleForm.id
       }
     }
   },
@@ -432,7 +449,7 @@ export default {
         return this.optionRadio === item.code
       })
       // console.log(index, 888)
-      this.optionList[index].isRight = true
+      // this.optionList[index].isRight = true
       this.ruleForm.option = this.optionList[index]
     },
     // 点击新增按钮
@@ -450,6 +467,19 @@ export default {
       // this.$refs.ruleFormRef.resetFields()
       this.getQuestion()
       this.$refs.ruleFormRef.validate(async valid => {
+        if (this.$route.query.id) {
+          console.log(this.$route.query.id, 'this.$route.query.id')
+          console.log(this.filterData, 'this.filterData')
+          try {
+            await editQusetion(this.$route.query.id, this.filterData)
+            this.$message.success('修改成功')
+            this.$router.push('/questions/list')
+          } catch (err) {
+            console.log(err, 'mmhh')
+            this.$message.error('修改失败')
+            return
+          }
+        }
         try {
           const { data } = await addQusetion(this.filterData)
           console.log(data, 3)
@@ -465,9 +495,24 @@ export default {
       console.log(this.$route)
       try {
         const { data } = await getBasicQusetion(this.$route.query.id)
-        console.log(data, 1111)
-        this.ruleForm.subject = data.subjectName
-        this.ruleForm.directory = data.directoryName
+        console.log(data, 11444411)
+        console.log(data.options, 'options')
+        const opt = data.options.filter(item => {
+          return item.isRight === 1
+        })
+        // this.ruleForm.chenkRadio=opt
+        this.optionRadio = opt[0].code
+
+        opt.forEach(item => {
+          this.ruleForm.chenkRadio.push(item.code)
+        })
+        console.log(this.ruleForm.chenkRadio, '孙以龙')
+        console.log(opt, 235)
+        // console.log(data, 888888)
+        // console.log(data.options, 666)
+        this.ruleForm.subject = data.subjectID
+        this.ruleForm.directory = data.catalogID
+        this.ruleForm.directoryName = data.directoryName
         this.ruleForm.company = data.enterpriseID
         this.ruleForm.city.citys = data.province
         this.ruleForm.city.areaCtiyListvalue = data.city
@@ -476,6 +521,7 @@ export default {
         this.ruleForm.difficultyradio = parseInt(data.difficulty)
         this.ruleForm.options = data.question
         this.optionList = data.options
+        this.ruleForm.id = Number(data.id)
         this.ruleForm.videoURL = data.videoURL
         this.ruleForm.question = data.answer
         this.ruleForm.textarea = data.remarks

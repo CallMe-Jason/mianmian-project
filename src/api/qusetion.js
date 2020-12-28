@@ -88,3 +88,12 @@ export const addQusetion = data => {
     data
   })
 }
+
+// 修改基础题库
+export const editQusetion = (id, data) => {
+  return request({
+    method: 'PUT',
+    url: `/questions/${id}`,
+    data
+  })
+}
