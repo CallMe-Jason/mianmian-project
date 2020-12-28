@@ -354,6 +354,7 @@ export default {
       border-radius: 50%;
     }
   }
+  width: 100%!important;
   box-shadow: 5px 5px 5px #888888;
   margin-top: -20px;
   margin-left: -20px;
